@@ -10,7 +10,8 @@ if($_SERVER['REQUEST_METHOD'] == 'GET') {
 	$title = $_POST['title'];
 	$content = $_POST['content'];
 	$aid = $_POST['aid'];
-	$result=update_article($dbconn, $title, $content, $aid);
+	$result=update_article($dbconn, htmlspecialchars($title), htmlspecialchars($content), htmlspecialchars($aid));
+	#Added the htmlspecialchars to userinput, preventing XSS attacks by disabling special html characters
 	Header ("Location: /");
 }
 ?>
