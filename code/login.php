@@ -1,15 +1,26 @@
 <?php include("templates/page_header.php");?>
 <?php
 
+include('lib/includes.php');
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$result = authenticate_user($dbconn, $_POST['username'], $_POST['password']);
+
+  $log = 'Login attempt for user ' . $_POST['username'];
+
 	if (pg_num_rows($result) == 1) {
 		$_SESSION['username'] = $_POST['username'];
 		$_SESSION['authenticated'] = True;
 		$_SESSION['id'] = pg_fetch_array($result)['id'];
 		//Redirect to admin area
 		header("Location: /admin.php");
-	}	
+
+    // UPDATE: LOG SUCCESSFUL LOGIN ATTEMPTS
+    logger('SUCCESS - ' . $log, 'INFO');
+	}	else {
+    // UPDATE: LOG FAILED LOGIN ATTEMPTSS
+    logger('FAILED - ' . $log, 'WARN');
+  }
 }
 
 ?>
