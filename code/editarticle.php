@@ -1,5 +1,6 @@
 <?php include("templates/page_header.php");?>
 <?php include("lib/auth.php") ?>
+<?php include("lib/includes.php") ?>
 <?php
 
 if($_SERVER['REQUEST_METHOD'] == 'GET') {
@@ -12,6 +13,13 @@ if($_SERVER['REQUEST_METHOD'] == 'GET') {
 	$aid = $_POST['aid'];
 	$result=update_article($dbconn, htmlspecialchars($title,ENT_QUOTES,'UTF-8'), 
 	htmlspecialchars($content,ENT_QUOTES,'UTF-8'), htmlspecialchars($aid,ENT_QUOTES,'UTF-8'));
+
+	if ($result == True) {
+		logger("Article modified", "INFO");
+	} else {
+		logger("Article failed to be modified", "ERROR");
+	}
+
 	#Added the htmlspecialchars to userinput, preventing XSS attacks by disabling special html characters
 	Header ("Location: /");
 }

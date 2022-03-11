@@ -1,9 +1,14 @@
 <?php include("templates/page_header.php");?>
 <?php include("lib/auth.php") ?>
+<?php include("lib/includes.php") ?>
 <?php
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$author = $_SESSION['id'];	
-		add_article($dbconn, $_POST['title'], $_POST['content'], $author);
+		if (add_article($dbconn, $_POST['title'], $_POST['content'], $author) == True) {
+			logger("New article created", "INFO");
+		} else {
+			logger("Acticle failed to create", "ERROR");
+		}
 		Header ("Location: /");		
 	}
 ?>
