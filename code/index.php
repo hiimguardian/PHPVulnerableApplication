@@ -17,10 +17,12 @@
 	?>
 
 <div class="blog-post">
-<h2 class="blog-post-title"><?php echo $row['title'] ?></h2>
-<p class="blog-post-meta"><?php echo substr($row['date'],0,10)." by ".$row['author'] ?></p>
-<p><?php echo $row['stub'] ?><br><a href='article.php?aid=<?php echo $row['aid'] ?>'>Read more...</a></p>
-</div>
+<h2 class="blog-post-title"><?php echo htmlspecialchars($row['title'], ENT_QUOTES, 'UTF-8') ?></h2>
+<p class="blog-post-meta"><?php echo htmlspecialchars(substr($row['date'],0,10),ENT_QUOTES,'UTF-8')." by ".
+	htmlspecialchars($row['author'], ENT_QUOTES, 'UTF-8') ?></p>
+<p><?php echo htmlspecialchars($row['stub'],ENT_QUOTES,'UTF-8') ?><br><a href='article.php?aid=
+<?php echo htmlspecialchars($row['aid'], ENT_QUOTES, 'UTF-8') ?>'>Read more...</a></p>
+</div><!-- escape XSS in the display all the articles-->
 
 	<?php } //close while loop ?>
 

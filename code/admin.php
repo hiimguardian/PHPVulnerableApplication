@@ -25,12 +25,12 @@ New Post <span class="fa fa-plus" aria-hidden="true"></span>
 		while ($row = pg_fetch_array($result)) {
 	?>
 <tr>
-  <td><a href='article.php?aid=<?php echo $row['aid'] ?>'><?php echo $row['title'] ?></a></td>
-  <td><?php echo $row['author'] ?></td>
-  <td><?php echo substr($row['date'],0,10) ?></td>
+  <td><a href='article.php?aid=<?php echo $row['aid'] ?>'><?php echo htmlspecialchars($row['title'],ENT_QUOTES,'UTF-8') ?></a></td>
+  <td><?php echo htmlspecialchars($row['author'],ENT_QUOTES,'UTF-8') ?></td>
+  <td><?php echo htmlspecialchars(substr($row['date'],0,10),ENT_QUOTES,'UTF-8') ?></td>
   <td><a href="/editarticle.php?aid=<?php echo $row['aid'] ?>"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a></td>
   <td><a href="/deletearticle.php?aid=<?php echo $row['aid'] ?>"><i class="fa fa-times fa-2x" aria-hidden="true"></i></a></td>
-</tr>
+</tr>	<!-- escape XSS in the admin panel-->
 	<?php } //close while loop ?>
 </table>
 	<?php include("templates/contentstop.php"); ?>
