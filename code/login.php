@@ -13,7 +13,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$_SESSION['authenticated'] = True;
 		$_SESSION['id'] = pg_fetch_array($result)['id'];
 		//Redirect to admin area
-		header("Location: /admin.php");
+    if($_POST['username']== 'admin'){
+		  header("Location: /admin.php");
+    }
+  else{
+      header("Location: /index.php");
+  } //UPDATE: Redirect non admins to the index.php page
 
     // UPDATE: LOG SUCCESSFUL LOGIN ATTEMPTS
     logger('SUCCESS - ' . $log, 'INFO');

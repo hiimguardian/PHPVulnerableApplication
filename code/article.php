@@ -34,6 +34,12 @@
 		." by ".htmlspecialchars($row['author'],ENT_QUOTES,'UTF-8') ?>
 	</p><p>
 		<?php echo htmlspecialchars($row['content'],ENT_QUOTES,'UTF-8') ?>
+		<?php
+			if (!isset($_SESSION['username']) || ($_SESSION['username'] == 'admin') || ($_SESSION['username']==$row['author'])) : ?>
+				<body><br>Delete Article</body>
+				<a href="/deletearticle.php?aid=<?php echo $row['aid'] ?>"><i class="fa fa-times fa-2x" aria-hidden="true"></i></a>	
+		
+		<?php endif; ?>
 		<!-- escape XSS in the display specific article page -->
 	</p>
       </div><!-- /.blog-post -->

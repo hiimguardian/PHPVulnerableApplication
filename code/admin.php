@@ -1,5 +1,11 @@
 <?php include("templates/page_header.php");?>
 <?php include("lib/auth.php") ?>
+<?php
+if (!isset($_SESSION['username']) || ($_SESSION['username'] != 'admin')) {
+    header('Location: login.php');
+    exit;
+}
+?>
 <!doctype html>
 <html lang="en">
 <head>
