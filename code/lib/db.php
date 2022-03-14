@@ -117,6 +117,14 @@ function authenticate_user($dbconn, $username, $password) {
 		password=$2
 		LIMIT 1";
 
-	return run_query($dbconn, $query,array($_POST['username'],$_POST['password']));
+	$saltQuery = "SELECT salt FROM authors WHERE username = $1";
+	$salt = pg_fetch_array(run_query($dbconn, $saltQuery, array($username)),0);
+	$salt = $salt[0];
+	#First grab the salt from the database for the attempted user
+	$saltAndPass = $salt.$password;
+	#Concatenate the salt and the entered user password
+	$passHash = strtoupper(hash('sha256', $saltAndPass));
+	return run_query($dbconn, $query,array($username,$passHash));
+	#Return the result
 }	
 ?>

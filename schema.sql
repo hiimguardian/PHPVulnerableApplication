@@ -4,6 +4,7 @@ CREATE TABLE authors (
 	id SERIAL,
 	created_on TIMESTAMPTZ DEFAULT NOW(),
 	username TEXT NOT NULL UNIQUE,
+	salt TEXT NOT NULL,
 	password TEXT NOT NULL,
 	role author_role NOT NULL DEFAULT 'user',
 	PRIMARY KEY (id) 

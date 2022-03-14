@@ -5,7 +5,7 @@ include('lib/includes.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$result = authenticate_user($dbconn, $_POST['username'], $_POST['password']);
-
+  logger($result, 'INFO');
   $log = 'Login attempt for user ' . $_POST['username'];
 
 	if (pg_num_rows($result) == 1) {
