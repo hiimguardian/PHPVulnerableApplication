@@ -3,6 +3,7 @@
 <?php
 if (!isset($_SESSION['username']) || ($_SESSION['username'] != 'admin')) {
     header('Location: login.php');
+	#prevent non-admins from accessing the admin panel
     exit;
 }
 ?>
