@@ -12,6 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$_SESSION['username'] = $_POST['username'];
 		$_SESSION['authenticated'] = True;
 		$_SESSION['id'] = pg_fetch_array($result)['id'];
+    $_SESSION['csrftoken'] = bin2hex(random_bytes(16));;
 		//Redirect to admin area
     if($_POST['username']== 'admin'){
 		  header("Location: /admin.php");

@@ -3,7 +3,12 @@ session_start();
 include("config.php");
 include("lib/db.php");
 include("lib/includes.php");
-
+$intoken = $_GET['csrftoken'];
+if(!$intoken || $intoken!=$_SESSION['csrftoken']){
+    #confirm csrf token is valid
+    header('Location: index.php');
+    exit;
+}
 $aid = $_GET['aid'];
 $result=get_article($dbconn, $aid);
 $row = pg_fetch_array($result, 0);

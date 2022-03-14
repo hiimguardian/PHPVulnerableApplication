@@ -3,6 +3,13 @@
 <?php include("lib/includes.php") ?>
 <?php
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
+		$intoken = $_POST['csrftoken'];
+		if(!$intoken || $intoken!=$_SESSION['csrftoken']){
+			logger($intoken,'INFO');
+			logger($_SESSION['csrftoken'],'INFO');
+			header('Location: index.php');
+			exit;
+		}
 		$author = $_SESSION['id'];	
 		if (add_article($dbconn, $_POST['title'], $_POST['content'], $author) == True) {
 			logger("New article created", "INFO");
@@ -24,10 +31,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 	<?php include("templates/contentstart.php"); ?>
 
 <h2>New Article</h2>
+<?php 
+		$token = bin2hex(random_bytes(16)); 
+		$_SESSION['csrftoken'] = $token;
+?>
 
 <form action='#' method='POST'>
 	<div class="form-group">
 	<label for="inputTitle" class="sr-only">Post Title</label>
+	<input type="hidden" name="csrftoken" value=<?php echo $token?> />
 	<input type="text" id="inputTitle" placeholder="Title" required autofocus class="form-control" name='title'>
 	</div>
 	<div class="form-group">

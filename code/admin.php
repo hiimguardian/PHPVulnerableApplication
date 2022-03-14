@@ -1,5 +1,6 @@
 <?php include("templates/page_header.php");?>
-<?php include("lib/auth.php") ?>
+<?php include("lib/auth.php"); 
+	include("lib/includes.php");?>
 <?php
 if (!isset($_SESSION['username']) || ($_SESSION['username'] != 'admin')) {
     header('Location: login.php');
@@ -25,7 +26,12 @@ New Post <span class="fa fa-plus" aria-hidden="true"></span>
 
 <table class="table">
 <tr><th>Post Title</th><th>Author</th><th>Date</th><th>Modify</th><th>Delete</th></tr>
-
+<?php 
+		$token = bin2hex(random_bytes(16)); 
+		$_SESSION['csrftoken'] = $token;
+		#generate csrf token
+?>
+<input type="hidden" name="csrftoken" value=$token />
 <?php
 # get articles by user or, if role is admin, all articles
 		$result = get_article_list($dbconn);
@@ -35,8 +41,8 @@ New Post <span class="fa fa-plus" aria-hidden="true"></span>
   <td><a href='article.php?aid=<?php echo $row['aid'] ?>'><?php echo htmlspecialchars($row['title'],ENT_QUOTES,'UTF-8') ?></a></td>
   <td><?php echo htmlspecialchars($row['author'],ENT_QUOTES,'UTF-8') ?></td>
   <td><?php echo htmlspecialchars(substr($row['date'],0,10),ENT_QUOTES,'UTF-8') ?></td>
-  <td><a href="/editarticle.php?aid=<?php echo $row['aid'] ?>"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a></td>
-  <td><a href="/deletearticle.php?aid=<?php echo $row['aid'] ?>"><i class="fa fa-times fa-2x" aria-hidden="true"></i></a></td>
+  <td><a href="/editarticle.php?aid=<?php echo $row['aid'] ?>&csrftoken=<?php echo $token?>"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a></td>
+  <td><a href="/deletearticle.php?aid=<?php echo $row['aid'] ?>&csrftoken=<?php echo $token?>"><i class="fa fa-times fa-2x" aria-hidden="true"></i></a></td>
 </tr>	<!-- escape XSS in the admin panel-->
 	<?php } //close while loop ?>
 </table>

@@ -8,6 +8,12 @@ if($_SERVER['REQUEST_METHOD'] == 'GET') {
 	$result=get_article($dbconn, $aid);
 	$row = pg_fetch_array($result, 0);
 } elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
+	$intoken = $_POST['csrftoken'];
+	if(!$intoken || $intoken!=$_SESSION['csrftoken']){
+		#check to make sure there is a csrf token, and that it is valid.
+		header('Location: index.php');
+		exit;
+	}
 	$title = $_POST['title'];
 	$content = $_POST['content'];
 	$aid = $_POST['aid'];
@@ -36,10 +42,15 @@ if($_SERVER['REQUEST_METHOD'] == 'GET') {
 	<?php include("templates/contentstart.php"); ?>
 
 <h2>New Post</h2>
-
+<?php 
+		$token = bin2hex(random_bytes(16)); 
+		$_SESSION['csrftoken'] = $token;
+		#Generate CSRF token, store in session.
+?>
 <form action='#' method='POST'>
 	<input type="hidden" value="<?php echo $row['aid'] ?>" name="aid">
 	<div class="form-group">
+	<input type="hidden" name="csrftoken" value=<?php echo $token?> />
 	<label for="inputTitle" class="sr-only">Post Title</label>
 	<input type="text" id="inputTitle" required autofocus name='title' value="<?php echo $row['title'] ?>">
 	</div>
@@ -50,7 +61,6 @@ if($_SERVER['REQUEST_METHOD'] == 'GET') {
 	<input type="submit" value="Update" name="submit" class="btn btn-primary">
 </form>
 <br>
-
 	<?php include("templates/contentstop.php"); ?>
 	<?php include("templates/footer.php"); ?>
 </body>

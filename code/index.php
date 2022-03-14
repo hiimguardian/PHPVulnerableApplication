@@ -1,4 +1,5 @@
-<?php include("templates/page_header.php");?>
+<?php 
+include("templates/page_header.php");?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -8,6 +9,11 @@
 <body>
 	<?php include("templates/nav.php"); ?>
 	<?php include("templates/contentstart.php"); ?>
+	<?php $token = bin2hex(random_bytes(16)); 
+		$_SESSION['csrftoken'] = $token;
+		#generate csrf token, not necessarily needed here though.
+	?>
+	<input type="hidden" name="csrf-token" value=$token />
 
 	<h3 class="pb-4 mb-4 font-italic border-bottom">Articles</h3>
 

@@ -1,7 +1,9 @@
 --password is 'password123'
-INSERT INTO authors (username, salt, password, role) VALUES ('admin','oXnWvpZ3oCzW8xZK', '22800522F7163321519C38B1A0FDA0448BBAE98F7F12A963C96BA84043E307AA', 'admin');
+INSERT INTO authors (username, salt, password, role) 
+VALUES ('admin','oXnWvpZ3oCzW8xZK', '22800522F7163321519C38B1A0FDA0448BBAE98F7F12A963C96BA84043E307AA', 'admin');
 --password is 'password123'
-INSERT INTO authors (username, salt, password) VALUES ('student','JsLfWv3ZV8RFQGXx', 'FFDCBCA2C136A5794681E3773B55888847CB861B7167BA3A523117104EAC9D85');
+INSERT INTO authors (username, salt, password) 
+VALUES ('student','JsLfWv3ZV8RFQGXx', 'FFDCBCA2C136A5794681E3773B55888847CB861B7167BA3A523117104EAC9D85');
 
 INSERT INTO articles (aid, title, author, stub, content) 
 VALUES ('cross-site-scripting', 'Cross-site Scripting', 1, 'Cross-site scripting (XSS) is a type of computer security vulnerability typically found in web applications.', 'Cross-site scripting (XSS) is a type of computer security vulnerability typically found in web applications. XSS enables attackers to inject client-side scripts into web pages viewed by other users. A cross-site scripting vulnerability may be used by attackers to bypass access controls such as the same-origin policy. Cross-site scripting carried out on websites accounted for roughly 84% of all security vulnerabilities documented by Symantec up until 2007. In 2017, XSS was still considered a major threat vector. XSS effects vary in range from petty nuisance to significant security risk, depending on the sensitivity of the data handled by the vulnerable site and the nature of any security mitigation implemented by the sites owner network.');

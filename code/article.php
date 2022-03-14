@@ -19,11 +19,13 @@
 <body>
 	<?php include("templates/nav.php"); ?>
 	<?php include("templates/contentstart.php"); ?>
-
+	<?php $token = bin2hex(random_bytes(16)); 
+	$_SESSION['csrftoken'] = $token
+	#generate csrf token so it can be sent to delete or edit?>
+	<input type="hidden" name="csrf-token" value=$token />
 	<h3 class="pb-4 mb-4 font-italic border-bottom">
         Off the dome. Here we go ... 
       	</h3>
-
 	<div class="blog-post">
 	<h2 class="blog-post-title"><?php echo htmlspecialchars($row['title'],ENT_QUOTES,'UTF-8') ?></h2>
 	<p class="blog-post-meta">
@@ -34,7 +36,9 @@
 		<?php
 			if (!isset($_SESSION['username']) || ($_SESSION['username'] == 'admin') || ($_SESSION['username']==$row['author'])) : ?>
 				<body><br>Delete Article</body>
-				<a href="/deletearticle.php?aid=<?php echo $row['aid'] ?>"><i class="fa fa-times fa-2x" aria-hidden="true"></i></a>	
+				<a href="/deletearticle.php?aid=<?php echo $row['aid'] ?>&csrftoken=<?php echo $token?>"><i class="fa fa-times fa-2x" aria-hidden="true"></i></a>
+				<body><br>Edit Article</body>
+				<a href="/editarticle.php?aid=<?php echo $row['aid'] ?>&csrftoken=<?php echo $token?>"><i class="fa fa-times fa-2x" aria-hidden="true"></i></a>	
 		
 		<?php endif; ?>
 		<!-- escape XSS in the display specific article page -->
