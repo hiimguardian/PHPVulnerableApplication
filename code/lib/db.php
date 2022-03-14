@@ -1,5 +1,17 @@
 <?php
 
+/* at the top of 'check.php' */
+if ( $_SERVER['REQUEST_METHOD']=='GET' && realpath(__FILE__) == realpath( $_SERVER['db.php'] ) ) {
+	/* 
+	   Up to you which header to send, some prefer 404 even if 
+	   the files does exist for security
+	*/
+	header( 'HTTP/1.0 403 Forbidden', TRUE, 403 );
+
+	/* choose the appropriate page to redirect users */
+	die( header( 'location: /error.php' ) );
+
+}
 $dbconn = pg_pconnect("host=$pg_host port=$pg_port dbname=$pg_dbname user=$pg_dbuser password=$pg_dbpassword") or die("Could not connect");
 
 if ($debug) {

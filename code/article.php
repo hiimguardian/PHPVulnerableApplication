@@ -15,9 +15,6 @@
 <head>
 <title><?php echo $row['title'] ?></title>
 	<?php include("templates/header.php"); ?>
-
-
-
 </head>
 <body>
 	<?php include("templates/nav.php"); ?>
