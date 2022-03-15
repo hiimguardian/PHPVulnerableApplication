@@ -1,3 +1,4 @@
+<?php include("templates/page_header.php");?>
 <?php
 
 include("vendor/autoload.php");
