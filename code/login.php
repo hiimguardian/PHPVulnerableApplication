@@ -9,19 +9,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $log = 'Login attempt for user ' . $_POST['username'];
 
 	if (pg_num_rows($result) == 1) {
+    
 		$_SESSION['username'] = $_POST['username'];
-		$_SESSION['authenticated'] = True;
+		// $_SESSION['authenticated'] = True;
 		$_SESSION['id'] = pg_fetch_array($result)['id'];
     $_SESSION['csrftoken'] = bin2hex(random_bytes(16));;
-		//Redirect to admin area
-    if($_POST['username']== 'admin'){
-		  header("Location: /admin.php");
-    }
-  else{
-      header("Location: /index.php");
-  } //UPDATE: Redirect non admins to the index.php page
+		// //Redirect to admin area
+    // if($_POST['username']== 'admin'){
+		//   header("Location: /admin.php");
+    // }
+    // else{
+    //     header("Location: /index.php");
+    // } //UPDATE: Redirect non admins to the index.php page
 
     // UPDATE: LOG SUCCESSFUL LOGIN ATTEMPTS
+    header("Location: mfa.php");
     logger('SUCCESS - ' . $log, 'INFO');
 	}	else {
     // UPDATE: LOG FAILED LOGIN ATTEMPTSS
