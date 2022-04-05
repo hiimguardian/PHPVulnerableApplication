@@ -4,7 +4,7 @@
 ## Description
 Assignment created by Nicholas Johnston for Secure Software Development class at Sheridan college. 
 
-Full writeup of vulnerability discovery, impacts, as well as mitigations can be found at the following google doc: https://docs.google.com/document/d/1uhMdyhfFiZuQTrenOgxZgjhodQuNUIYRx9owmadUWs0/edit?usp=sharing
+Full writeup of vulnerability discovery, impacts, as well as mitigations can be found in the following google doc: https://docs.google.com/document/d/1uhMdyhfFiZuQTrenOgxZgjhodQuNUIYRx9owmadUWs0/edit?usp=sharing
 
 ## Vulnerabilities
 
